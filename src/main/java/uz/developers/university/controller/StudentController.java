@@ -39,7 +39,8 @@ public class StudentController {
     @GetMapping("/forUniversity/{universityId}")
     public Page<Student> getStudentsbyPageForuniversity(@PathVariable Integer universityId,@RequestParam int page){
         Pageable pageable = PageRequest.of(page,10);
-        studentRepository.findAllByGroup_Faculty_UniversityId(universityId,pageable);
+        Page<Student> allByGroup_faculty_universityId = studentRepository.findAllByGroup_Faculty_UniversityId(universityId, pageable);
+        return allByGroup_faculty_universityId;
     }
 
     @GetMapping("/byFacultyId/{facultyId}")
