@@ -9,11 +9,12 @@ import java.util.List;
 public interface FacultyService {
     List<Faculty> getFaculties();
 
-    Faculty getFaculty(Integer id);
+    List<Faculty> findAllByUniversityId(Integer universityId);
 
     Result addFaculty(FacultyDto facultyDto);
 
-    Result editFaculty(Integer id, FacultyService facultyService);
+    Result editFaculty(Integer id, FacultyDto facultyDto);
 
     Result deleteFaculty(Integer id);
+
 }

@@ -9,11 +9,13 @@ import java.util.List;
 public interface GroupService {
     List<Group> getGroups();
 
-    Group getGroup(Integer id);
+    List<Group> getGroupsByUniversityIdNative(Integer universityId);
 
     Result addGroup(GroupDto groupDto);
 
     Result editGroup(Integer id, GroupDto groupDto);
 
     Result deleteGroup(Integer id);
+
+
 }

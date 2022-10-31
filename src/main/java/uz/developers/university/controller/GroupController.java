@@ -2,68 +2,43 @@ package uz.developers.university.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import uz.developers.university.model.Faculty;
 import uz.developers.university.model.Group;
 import uz.developers.university.payload.GroupDto;
-import uz.developers.university.repository.FacultyRepository;
-import uz.developers.university.repository.GroupRepository;
+import uz.developers.university.payload.Result;
+import uz.developers.university.service.GroupService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/group")
 public class GroupController {
     @Autowired
-    GroupRepository groupRepository;
-    @Autowired
-    FacultyRepository facultyRepository;
+    GroupService groupService;
 
-    //for all university
     @GetMapping
     public List<Group> getGroups(){
-        return groupRepository.findAll();
+        return groupService.getGroups();
     }
 
-    //only for one university
-    @GetMapping("/byUniversityId/{universityId}")
+    @GetMapping("/{universityId}")
     public List<Group> getGroupsByUniversityId(@PathVariable Integer universityId){
-        return groupRepository.getGroupsByUniversityIdNative(universityId);
+        return groupService.getGroupsByUniversityIdNative(universityId);
     }
 
     @PostMapping
-    public String addGroup(@RequestBody GroupDto groupDto){
-        Group group = new Group();
-        group.setName(groupDto.getName());
-
-        Optional<Faculty> optionalFaculty = facultyRepository.findById(groupDto.getFacultyId());
-        if (optionalFaculty.isEmpty()) {
-            return "Such faculty is not found";
-        }
-        group.setFaculty(optionalFaculty.get());
-        groupRepository.save(group);
-        return "Group is added";
+    public Result addGroup(@RequestBody GroupDto groupDto){
+        return groupService.addGroup(groupDto);
     }
 
     @PutMapping("/{id}")
-    public String editGroup(@PathVariable Integer id, @RequestBody GroupDto groupDto){
-        Optional<Group> optionalGroup = groupRepository.findById(id);
-        if (optionalGroup.isEmpty()) {
-            return "Group is not found";
-        }
-        Group group = optionalGroup.get();
-        group.setName(groupDto.getName());
-        boolean existsByName = groupRepository.existsByName(groupDto.getName());
-        if (existsByName) {
-            return "This faculty such group exist";
-        }
-        groupRepository.save(group);
-        return "Group is edited";
+    public Result editGroup(@PathVariable Integer id, @RequestBody GroupDto groupDto){
+        return groupService.editGroup(id,groupDto);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteGroup(@PathVariable Integer id){
-        groupRepository.deleteById(id);
-        return "Group is deleted";
+    public Result deleteGroup(@PathVariable Integer id){
+        return groupService.deleteGroup(id);
     }
+
+
 }
