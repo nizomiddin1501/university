@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password(passwordEncoder.encode("curator"))
                 .roles(UserRole.CURATOR.name()) //ROLE_CURATOR
                 .build();
-       
+
         UserDetails dean = User.builder()
                 .username("dean")
                 .password(passwordEncoder.encode("dean"))
