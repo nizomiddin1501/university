@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/","index","/css/*","/js/*").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/**").hasAnyRole(UserRole.STUDENT.name(),UserRole.CURATOR.name(),UserRole.DEAN.name(),UserRole.PRORECTOR.name(),UserRole.RECTOR.name())
+                .antMatchers(HttpMethod.GET,"/api/address","/api").hasAnyRole(UserRole.STUDENT.name(),UserRole.CURATOR.name(),UserRole.DEAN.name(),UserRole.PRORECTOR.name(),UserRole.RECTOR.name(),UserRole.MINISTER.name())
                 .antMatchers(HttpMethod.POST,"/api/**").hasAnyRole(UserRole.STUDENT.name(),UserRole.CURATOR.name(),UserRole.RECTOR.name())
                 .antMatchers(HttpMethod.PUT,"/api/**").hasAnyRole(UserRole.CURATOR.name(),UserRole.RECTOR.name())
                 .antMatchers(HttpMethod.DELETE,"/api/**").hasAnyRole(UserRole.RECTOR.name())

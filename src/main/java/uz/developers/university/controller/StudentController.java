@@ -30,7 +30,7 @@ public class StudentController {
     }
 
     @GetMapping("/byFacultyId/{facultyId}")
-    public List<Student> getStudentsByUniversityId(@PathVariable Integer facultyId){
+    public List<Student> getStudentsByFacultyId(@PathVariable Integer facultyId){
         return studentService.getStudentsByFacultyIdNative(facultyId);
     }
 
